@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Devel\C++\Terraluna\assets\AssetData.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Devel\C++\Terraluna\assets\AssetData.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Devel\C++\Terraluna\assets\TileData.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Devel\C++\Terraluna\assets\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{FB4CA610-245D-3C15-85CF-6FCA16ED3044}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{436B91D5-2CFD-3E51-8852-E835823DBEA7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
