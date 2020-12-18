@@ -1,2 +1,0 @@
-J:\Devel\C++\Terraluna\build\grap\bin\lib\Debug\grap.pdb
-J:\Devel\C++\Terraluna\build\grap\grap.dir\Debug\grap.pdb

@@ -1,2 +1,0 @@
-J:\Devel\C++\Terraluna\build\assets\bin\lib\Debug\Assets.pdb
-J:\Devel\C++\Terraluna\build\assets\Assets.dir\Debug\Assets.pdb
