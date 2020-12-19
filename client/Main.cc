@@ -1,13 +1,15 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-// Dimensions of our window
+
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
-int main(void)
+
+int
+main(void)
 {
 	GLFWwindow* window;
 
-	if ( ! glfwInit() )
+	if (!glfwInit())
 	{
 		return -1;
 	}
@@ -16,9 +18,9 @@ int main(void)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "OpenGL: Starting point", NULL, NULL);
+	window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "TerraLuna", NULL, NULL);
 
-	if ( ! window )
+	if (!window)
 	{
 		glfwTerminate();
 		return -1;
@@ -26,18 +28,19 @@ int main(void)
 
 	glfwMakeContextCurrent(window);
 
-	if ( ! gladLoadGLLoader((GLADloadproc)glfwGetProcAddress) )
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		glfwTerminate();
 		return -1;
 	}
 
-	while ( ! glfwWindowShouldClose(window) )
+	while (!glfwWindowShouldClose(window))
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
+
 	glfwTerminate();
 	return 0;
 }
