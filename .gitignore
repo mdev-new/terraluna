@@ -2,6 +2,3 @@ out/
 build/
 .vscode/
 *.sublime-*
-*.out
-*.a
-*.so

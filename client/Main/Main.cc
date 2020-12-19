@@ -1,5 +1,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <cstdio>
+#include "Main.hh"
 
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
@@ -8,6 +10,7 @@ int
 main(void)
 {
 	GLFWwindow* window;
+	testfunc();
 
 	if (!glfwInit())
 	{
