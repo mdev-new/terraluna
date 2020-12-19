@@ -5,7 +5,7 @@ C=gcc
 CC=g++
 AR=ar -rc
 BUILD_DIR ?= build
-BUILD_DIRS ?= build build/server/server/Main build/client/client/Main build/glfw/vendor/glfw/src build/glfw/vendor/glfw/deps build/client/vendor/glad
+BUILD_DIRS ?= build build/server/server/Main build/client/client/Main build/client/client/Shaders build/glfw/vendor/glfw/src build/glfw/vendor/glfw/deps build/client/vendor/glad
 
 TARGET_CLIENT_EXEC ?= client/terraluna_client.exe
 TARGET_SERVER_EXEC ?= server/terraluna_server.exe
@@ -20,7 +20,7 @@ LINUX_CLIENT_LDFLAGS := $(BUILD_DIR)/glfw/glfw.a -lGL -lm -lX11 -lpthread -lXi -
 CLIENT_SRCS := $(call rwildcard,client,*.cc) vendor/glad/glad.c
 CLIENT_OBJS := $(CLIENT_SRCS:%=$(BUILD_DIR)/client/%.o)
 CLIENT_CCFLAGS ?= -Ofast -s -std=c++17 $(LINUX_CLIENT_CCFLAGS)
-CLIENT_CFLAGS ?= -std=c11 -Ofast -s -Iclient/include $(LINUX_CLIENT_CFLAGS)
+CLIENT_CFLAGS ?= -std=c11 -Ofast -s -Iclient/include -Iclient -Iclient/Shaders $(LINUX_CLIENT_CFLAGS)
 CLIENT_LDFLAGS ?= -static-libgcc -static-libstdc++ $(LINUX_CLIENT_LDFLAGS)
 
 
