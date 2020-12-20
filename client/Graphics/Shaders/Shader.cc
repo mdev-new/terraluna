@@ -68,6 +68,11 @@ namespace Shaders
 		glDeleteShader(fragment);
 	}
 
+	Shader::~Shader()
+	{
+		glDeleteProgram(this->m_ProgramId);
+	}
+
 	void Shader::Bind()
 	{
 		glUseProgram(this->m_ProgramId);

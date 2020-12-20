@@ -22,6 +22,8 @@ namespace Shaders
 		*/
 		Shader(std::string& vertexData, std::string& fragmentData, bool onDisk);
 
+		~Shader();
+
 		void Bind();
 		void Unbind();
 
