@@ -105,7 +105,7 @@ namespace Shaders
 
 	void Shader::SetUniformMat4f(std::string& name, Maths::Matrix4f& matrix)
 	{
-//		glUniformMatrix4fv(GetUniform(name), false, matrix.toFloatBuffer());
+		glUniformMatrix4fv(GetUniform(name), 1, GL_FALSE, matrix.elements);
 	}
 
 	// We can cache for improved speed

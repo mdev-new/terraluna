@@ -3,15 +3,20 @@
 #include <cstdio>
 #include <string>
 
+#define STB_IMAGE_IMPLEMENTATION
+
 #include "Main.hh"
+#include "Misc/Maths/Matrix4f.hh"
+#include "Graphics/Render/VertexArray.hh"
 #include "Graphics/Shaders/Shader.hh"
+#include "Graphics/Textures/Texture2D.hh"
 
 
 constexpr int SCREEN_WIDTH = 800;
 constexpr int SCREEN_HEIGHT = 600;
 
 // Android compability
-int main(int argc, char** argv)
+int main(/*int argc, char** argv*/)
 {
 	GLFWwindow* window;
 	
@@ -22,7 +27,7 @@ int main(int argc, char** argv)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
 
@@ -41,66 +46,48 @@ int main(int argc, char** argv)
 		glfwTerminate();
 		return -1;
 	}
+	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	//glClearColor(0.0f, 0.8f, 0.3f, 1.0f);
+	glEnable(GL_TEXTURE_2D);
+	glActiveTexture(GL_TEXTURE1);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	std::string fragShader = "shader.frag";
-	std::string vertShader = "shader.vert";
+	std::string fragShader = "shader2.frag";
+	std::string vertShader = "shader2.vert";
 	Shaders::Shader s(vertShader, fragShader, true);
 
-	float vertices[] = {
-		 0.5f,  0.5f, 0.0f,  // top right
-         0.5f, -0.5f, 0.0f,  // bottom right
-        -0.5f, -0.5f, 0.0f,  // bottom left
-        -0.5f,  0.5f, 0.0f   // top left 
-	};
+	std::string unif = "pr_matrix";
+	Maths::Matrix4f mat = Maths::Matrix4f().Orthographic(0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, -1.0f, 1.0f);
+	s.SetUniformMat4f(unif, mat);
+	std::string textext = "tex";
+	s.SetUniform1i(textext, 1);
+	float verts[] = { 0.0f, SCREEN_WIDTH, 0.0f, 0.0f, 0.0f, 0.0f, SCREEN_WIDTH, 0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, };
+	float tcoords[] = { 0, 1, 0, 0, 1, 0, 1, 1 };
+	byte indic[] = { 0, 1, 2, 2, 3, 0 };
+	Render::VertexArray background(verts, indic, tcoords);
 
-	uint32_t indices[] = {
-		0, 1, 2,
-		1, 2, 3
-	};
 
-	uint32_t VBO, VAO, EBO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
-
-	glBindVertexArray(VAO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
-
-	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-	glClearColor(0.0f, 0.8f, 0.3f, 1.0f);
+	Textures::Texture2D tex("texture.png");
 
 	while (!glfwWindowShouldClose(window))
 	{
 		// Update
 
-		glClear(GL_COLOR_BUFFER_BIT);
 
 		// Rendering
+		glClear(GL_COLOR_BUFFER_BIT);
+		tex.Bind();
 		s.Bind();
-
-		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
+		background.Bind();
+		background.Draw();
 		s.Unbind();
+		tex.Unbind();
+		background.Unbind();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
-
-	glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
 
 	glfwTerminate();
 	return 0;

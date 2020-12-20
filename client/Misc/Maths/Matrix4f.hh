@@ -15,7 +15,7 @@ namespace Maths
 	 	Matrix4f Rotate(float angle);
 		Matrix4f Multiply(Matrix4f matrix);
 
-		float elements[256];
+		float elements[4 * 4];
 
 	private:
 		int size = 4 * 4;
