@@ -2,6 +2,9 @@
 #include <glad/glad.h>
 #include <string>
 #include <cstdint>
+#include "Misc/Maths/Matrix4f.hh"
+#include "Misc/Maths/Vector2f.hh"
+#include "Misc/Maths/Vector3f.hh"
 
 
 namespace Shaders
@@ -24,9 +27,9 @@ namespace Shaders
 
 		void SetUniform1i(std::string& name, int value);
 		void SetUniform1f(std::string& name, float value);
-		void SetUniform2f(std::string& name, Vector2f& vector);
-		void SetUniform3f(std::string& name, Vector3f& vector);
-		void SetUniformMat4f(std::string& name, Matrix4f& matrix);
+		void SetUniform2f(std::string& name, Maths::Vector2f& vector);
+		void SetUniform3f(std::string& name, Maths::Vector3f& vector);
+		void SetUniformMat4f(std::string& name, Maths::Matrix4f& matrix);
 		int GetUniform(std::string& name);
 	private:
 		uint32_t m_ProgramId;

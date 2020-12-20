@@ -8,5 +8,5 @@ namespace Maths
 		Vector3f();
 		Vector3f(float x, float y,  float z);
 		float x, y, z;
-	}
+	};
 }

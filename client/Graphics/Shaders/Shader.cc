@@ -5,6 +5,9 @@
 #include <glad/glad.h>
 
 #include "Shader.hh"
+#include "Misc/Maths/Matrix4f.hh"
+#include "Misc/Maths/Vector2f.hh"
+#include "Misc/Maths/Vector3f.hh"
 
 
 namespace Shaders
@@ -85,17 +88,17 @@ namespace Shaders
 		glUniform1f(GetUniform(name), value);
 	}
 
-	void Shader::SetUniform2f(std::string& name, Vector2f& vector)
+	void Shader::SetUniform2f(std::string& name, Maths::Vector2f& vector)
 	{
 		glUniform2f(GetUniform(name), vector.x, vector.y);
 	}
 
-	void Shader::SetUniform3f(std::string& name, Vector3f& vector)
+	void Shader::SetUniform3f(std::string& name, Maths::Vector3f& vector)
 	{
 		glUniform3f(GetUniform(name), vector.x, vector.y, vector.z);
 	}
 
-	void Shader::SetUniformMat4f(std::string& name, Matrix4f& matrix)
+	void Shader::SetUniformMat4f(std::string& name, Maths::Matrix4f& matrix)
 	{
 //		glUniformMatrix4fv(GetUniform(name), false, matrix.toFloatBuffer());
 	}

@@ -38,8 +38,9 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
-	std::string name = "shader.frag";
-	Shaders::Shader s(name, name, true);
+	std::string fragShader = "shader.frag";
+	std::string vertShader = "shader.vert";
+	Shaders::Shader s(vertShader, fragShader, true);
 	
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	glClearColor(0.0f, 0.8f, 0.3f, 1.0f);
