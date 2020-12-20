@@ -2,8 +2,10 @@
 #include <GLFW/glfw3.h>
 #include <cstdio>
 #include <string>
+
 #include "Main.hh"
-#include "../Shaders/Shader.hh"
+#include "Graphics/Shaders/Shader.hh"
+
 
 constexpr int SCREEN_WIDTH = 800;
 constexpr int SCREEN_HEIGHT = 600;
@@ -37,7 +39,7 @@ int main(int argc, char** argv)
 	}
 
 	std::string name = "shader.frag";
-	Shaders::Shader s(name, true);
+	Shaders::Shader s(name, name, true);
 	
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	glClearColor(0.0f, 0.8f, 0.3f, 1.0f);
