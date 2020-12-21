@@ -6,11 +6,11 @@ BUILD_DIR ?= build
 
 
 SERVER_BUILD_DIRS ?= $(BUILD_DIR)/server/server/Main
-CLIENT_BUILD_DIRS ?= $(BUILD_DIR)/client/client/Main \
-						$(BUILD_DIR)/client/client/Misc/Maths \
-						$(BUILD_DIR)/client/client/Graphics/Shaders \
-						$(BUILD_DIR)/client/client/Graphics/Render \
-						$(BUILD_DIR)/client/client/Graphics/Textures
+CLIENT_BUILD_DIRS ?= $(BUILD_DIR)/client/client/src/Main \
+						$(BUILD_DIR)/client/client/src/Misc/Maths \
+						$(BUILD_DIR)/client/client/src/Graphics/Shaders \
+						$(BUILD_DIR)/client/client/src/Graphics/Render \
+						$(BUILD_DIR)/client/client/src/Graphics/Textures
 
 GLFW_BUILD_DIRS ?= $(BUILD_DIR)/glfw/vendor/glfw/src \
 					$(BUILD_DIR)/glfw/vendor/glfw/deps \
@@ -20,7 +20,8 @@ BUILD_DIRS ?= $(BUILD_DIR) \
 				$(CLIENT_BUILD_DIRS) \
 				$(SERVER_BUILD_DIRS) \
 				$(GLFW_BUILD_DIRS) \
-				$(BUILD_DIR)/client/vendor/glad
+				$(BUILD_DIR)/client/vendor/glad \
+				$(BUILD_DIR)/client/vendor/stb
 
 
 
@@ -36,8 +37,8 @@ C := gcc
 CC := g++
 AR := ar -rc
 
-CLIENT_SHARED_INCLUDES := -Ivendor/glfw/include -Ivendor/glad -Ivendor/stb -Iclient
-CLIENT_SRCS := $(call rwildcard,client,*.cc) vendor/glad/glad.c
+CLIENT_SHARED_INCLUDES := -Ivendor/glfw/include -Ivendor/glad -Ivendor/stb -Iclient/src
+CLIENT_SRCS := $(call rwildcard,client,*.cc) vendor/glad/glad.c vendor/stb/stb_image.c
 CLIENT_OBJS := $(CLIENT_SRCS:%=$(BUILD_DIR)/client/%.o)
 CLIENT_CCFLAGS ?= -Ofast -s -std=c++17 -Wall -Wextra $(CLIENT_SHARED_INCLUDES) $(LINUX_CLIENT_CCFLAGS)
 CLIENT_CFLAGS ?= -static-libgcc -std=c11 -Ofast -s $(CLIENT_SHARED_INCLUDES) $(LINUX_CLIENT_CFLAGS)
