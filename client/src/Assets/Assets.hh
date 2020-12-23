@@ -9,7 +9,7 @@ public:
     void Pack(char* data);
     void Parse(const char* texPath, const char* assetPath);
 
-    const Asset& const GetAsset(const char* name, const char* tilemap = nullptr) const noexcept;
+    const Asset& GetAsset(const char* name, const char* tilemap = nullptr) noexcept;
 
 private:
     char* data;

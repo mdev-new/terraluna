@@ -24,12 +24,12 @@ void Assets::Parse(const char* texPath, const char* assetPath)
     }
 }
 
-const Asset& const 
+const Asset& 
 Assets::GetAsset(
     const char* name, 
-    const char* tilemap = nullptr
+    const char* tilemap
     ) 
-const noexcept
+noexcept
 {
 
 }
