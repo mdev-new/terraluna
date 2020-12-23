@@ -1,9 +1,10 @@
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
 #include <cstdio>
 #include <string>
 #include <vector>
+#include <thread>
+
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 #include "Main.hh"
 #include "Misc/Maths/Matrix4f.hh"
@@ -12,8 +13,6 @@
 #include "Graphics/Textures/Texture2D.hh"
 
 
-constexpr int SCREEN_WIDTH = 800;
-constexpr int SCREEN_HEIGHT = 800;
 
 // Android compability
 int main(/*int argc, char** argv*/)
@@ -40,6 +39,7 @@ int main(/*int argc, char** argv*/)
 	}
 
 	glfwMakeContextCurrent(window);
+	glfwSwapInterval(0);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
@@ -79,11 +79,9 @@ int main(/*int argc, char** argv*/)
 	Render::VertexArray background(verts, indic, tcoords);
 
 
-	while (!glfwWindowShouldClose(window))
+	bool running = true;
+	while (running && !glfwWindowShouldClose(window))
 	{
-		// Update
-
-
 		// Rendering
 		glClear(GL_COLOR_BUFFER_BIT);
 
@@ -99,6 +97,8 @@ int main(/*int argc, char** argv*/)
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000 / FPS));
 	}
 
 // TODO: Cleanup
