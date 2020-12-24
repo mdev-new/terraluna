@@ -2,11 +2,13 @@
 #include <string>
 #include <vector>
 #include <thread>
+#include <sstream>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include "Main.hh"
+#include "Audio/Audio.hh"
 #include "Misc/Maths/Matrix4f.hh"
 #include "Graphics/Render/VertexArray.hh"
 #include "Graphics/Shaders/Shader.hh"
@@ -47,6 +49,10 @@ int main(/*int argc, char** argv*/)
 		return -1;
 	}
 
+	std::stringstream windowTitle;
+	windowTitle << "Terraluna " << VERSION << " (OpenGL " << glGetString(GL_VERSION) << ")";
+	glfwSetWindowTitle(window, windowTitle.str().c_str());
+
 	glClearColor(0.0f, 0.8f, 0.3f, 1.0f);
 	glActiveTexture(GL_TEXTURE1);
 	glEnable(GL_BLEND);
@@ -78,6 +84,10 @@ int main(/*int argc, char** argv*/)
 	std::vector<byte> indic = { 0, 1, 2, 2, 3, 0 };
 	Render::VertexArray background(verts, indic, tcoords);
 
+	Audio::SndOutStream snd;
+	Audio::AudioFile af { "client/res/test.mp3" };
+	snd.Play(af);
+	// af.Wait(); // uncomment it to block the thread until the sound is over (efectively make this sync)
 
 	bool running = true;
 	while (running && !glfwWindowShouldClose(window))
