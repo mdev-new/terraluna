@@ -13,6 +13,9 @@
 
 namespace Assets::Types
 {
+    //                              Tilemap size  /  Tile size
+    constexpr uint32_t MAX_TILES = (1024 * 1024) / (32 * 32);
+
     enum class ID
     {
         Tex,
@@ -31,7 +34,7 @@ namespace Assets::Types
     struct Shader
     {
         ID id = ID::Shader;
-        const char* code;
+        std::string code;
     };
 
     struct Audio
@@ -40,22 +43,23 @@ namespace Assets::Types
         // TODO: add rest of audio data
     };
 
+    struct Tiledata
+    {
+        ID id = ID::Tiledata;
+        uint32_t tilemapId; // Which tilemap to search this tile
+        uint32_t x, y; // Pos in tilemap
+        uint16_t rarity;
+        bool obtainable;
+        std::string name;
+    };
+
     struct Tilemap
     {
         ID id = ID::Tilemap;
         size_t size;
-        char* data;
+        Tiledata data[MAX_TILES];
     };
 
-    struct Tiledata
-    {
-        ID id = ID::Tiledata;
-        uint32_t tilemapId;
-        float x, y; // Pos in tilemap
-        const char* name;
-        uint16_t rarity;
-        bool obtainable;
-    };
 
 }
 
@@ -89,7 +93,8 @@ namespace Assets::Manager
 
         if (file.is_open())
         {
-            {
+            { // new scope because C++ collects garbage after this scope's lifetime has ended, and we don't
+              // need that 4 bytes allocated in the stack.
                 int header; // we dont do anything with the header atleast yet
                 file.read((char*)&header, sizeof(header));
             }

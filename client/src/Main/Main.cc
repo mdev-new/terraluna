@@ -35,11 +35,11 @@ int main(/*int argc, char** argv*/)
 
 	{
 		Assets::Types::Shader s;
-		s.code = "#version 330 core\n\nvoid main() {}";
+		s.code =+ "#version 330 core\n\nvoid main() {}";
 
 		Assets::Types::Shader x;
 
-		//Assets::Manager::Pack("shaders1.shd", s);
+		Assets::Manager::Pack("shaders1.shd", s);
 		Assets::Manager::Parse("shaders1.shd", x);
 
 		std::cout << (int)x.id << ' ' << x.code << '\n';
@@ -101,7 +101,7 @@ int main(/*int argc, char** argv*/)
 	snd << af; // `snd.Play(af);` does the same thing
 	// af.Wait(); // uncomment it to block the thread until the sound is played (efectively make this sync)
 
-	bool running = true;
+	bool running = true; // Can I question what's this?
 	while (running && !glfwWindowShouldClose(window))
 	{
 		// Rendering
