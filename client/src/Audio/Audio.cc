@@ -195,4 +195,10 @@ namespace Audio
 			return;
 		ma_device_start(&dev);
 	}
+
+	SndOutStream& operator<<(SndOutStream& aout, Audio& a)
+	{
+		aout.Play(a);
+		return aout;
+	}
 }

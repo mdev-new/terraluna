@@ -103,4 +103,6 @@ namespace Audio
 		bool stoplater {false};
 		bool silence {true};
 	};
+
+	SndOutStream& operator<<(SndOutStream& aout, Audio& a);
 }

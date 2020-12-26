@@ -1,47 +1,63 @@
-#include <fstream>
-#include <iostream>
-#include <sstream>
-
 #include "Shader.hh"
-#include "Misc/Maths/Matrix4f.hh"
-#include "Misc/Maths/Vector2f.hh"
-#include "Misc/Maths/Vector3f.hh"
 
 
 namespace Shaders
 {
 	Shader::Shader() {}
-	Shader::Shader(std::string& vertexData, std::string& fragmentData, bool onDisk)
+	Shader::Shader(std::string& shaderData, bool onDisk)
 	{
 		std::string vertexShader, fragmentShader;
 
 		if (onDisk)
 		{
-			auto vf = std::ifstream(vertexData, std::ios::in);
-			auto fv = std::ifstream(fragmentData, std::ios::in);
+			std::ifstream shader(shaderData, std::ios::in);
 
-			if (!vf)
-				std::cout << "SHADER::LOAD_FROM_FILE::VERTEX_SHADER: Failed, could not open the file!\n";
-			if (!fv)
-				std::cout << "SHADER::LOAD_FROM_FILE::FRAGMENT_SHADER: Failed, could not open the file!\n";
+			std::string line;
+			std::stringstream ss[2];
+			int type = 0; // -1 - none, 0 - vertex, 1 - fragment
 
-			std::stringstream vs, fs;
+			while (getline(shader, line))
+			{
+				if(line.find("#type") != std::string::npos)
+				{
+					if (line.find("vertex") != std::string::npos)
+						type = 0;
+					else if(line.find("fragment") != std::string::npos)
+						type = 1;
+				}
+				else
+				{
+					ss[type] << line << '\n';
+				}
+			}
 
-			vs << vf.rdbuf();
-			vf.close();
-
-			fs << fv.rdbuf();
-			fv.close();
-
-			vertexShader = vs.str();
-			fragmentShader = fs.str();
-
-//			std::cout << "SHADER::LOAD_FROM_FILE::LOADED_SUCCESSFULLY: Loaded vertex & fragment shader from file successfully!" << '\n';
+			shader.close();
+			vertexShader = ss[0].str();
+			fragmentShader = ss[1].str();
 		}
 		else
 		{
-			vertexShader = vertexData;
-			fragmentShader = fragmentData;
+			std::istringstream lines(shaderData);
+			std::stringstream ss[2];
+			std::string line;
+			int type = 0; // -1 - none, 0 - vertex, 1 - fragment
+			while (getline(lines, line))
+			{
+				if(line.find("#type") != std::string::npos)
+				{
+					if (line.find("vertex") != std::string::npos)
+						type = 0;
+					else if(line.find("fragment") != std::string::npos)
+						type = 1;
+				}
+				else
+				{
+					ss[type] << line << "\n";
+				}
+			}
+
+			vertexShader = ss[0].str();
+			fragmentShader = ss[1].str();
 		}
 
 		uint32_t vertex, fragment;

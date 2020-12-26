@@ -58,9 +58,8 @@ int main(/*int argc, char** argv*/)
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	std::string vertShader = "client/res/shader.vert";
-	std::string fragShader = "client/res/shader.frag";
-	Shaders::Shader s(vertShader, fragShader, true);
+	std::string shader = "client/res/shader.sdr";
+	Shaders::Shader s(shader, true);
 
 	std::string fname = "client/res/vase.png";
 	Textures::Texture2D tex(fname);
@@ -75,19 +74,19 @@ int main(/*int argc, char** argv*/)
 	s.Unbind();
 
 	std::vector<float> verts = {
-				0.0f, 300.0f, 0.1f,
-				0.0f, 0.0f, 0.1f,
-				300.0f, 0.0f, 0.1f,
-				300.0f, 300.0f, 0.1f,
-			};
+		0.0f, 300.0f, 0.1f,
+		0.0f, 0.0f, 0.1f,
+		300.0f, 0.0f, 0.1f,
+		300.0f, 300.0f, 0.1f,
+	};
 	std::vector<float> tcoords = { 0, 1, 0, 0, 1, 0, 1, 1 };
 	std::vector<byte> indic = { 0, 1, 2, 2, 3, 0 };
 	Render::VertexArray background(verts, indic, tcoords);
 
 	Audio::SndOutStream snd;
 	Audio::AudioFile af { "client/res/test.mp3" };
-	snd.Play(af);
-	// af.Wait(); // uncomment it to block the thread until the sound is over (efectively make this sync)
+	snd << af; // `snd.Play(af);` does the same thing
+	// af.Wait(); // uncomment it to block the thread until the sound is played (efectively make this sync)
 
 	bool running = true;
 	while (running && !glfwWindowShouldClose(window))

@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
 #include <cstdint>
+#include <fstream>
+#include <iostream>
+#include <sstream>
 
 #include <glad/glad.h>
 
@@ -23,7 +26,7 @@ namespace Shaders
 			fragmentData - the shader, or path in the disk (onDisk has to be tru if on disk)
 			onDisk - load data from files.
 		*/
-		Shader(std::string& vertexData, std::string& fragmentData, bool onDisk);
+		Shader(std::string& shaderData, bool onDisk);
 
 		~Shader();
 
