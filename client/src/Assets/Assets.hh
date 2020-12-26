@@ -64,7 +64,7 @@ namespace Assets::Manager
     template<typename T>
     void Pack(const char* fileNameToPack, const T& data)
     {
-        auto file = std::fstream(fileNameToPack, std::ios::binary | std::ios::out/* | std::ios::app*/);
+        auto file = std::fstream(fileNameToPack, std::ios::binary | std::ios::out | std::ios::app);
 
         if (file.is_open())
         {
