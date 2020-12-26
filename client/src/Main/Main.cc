@@ -13,6 +13,7 @@
 #include "Graphics/Render/VertexArray.hh"
 #include "Graphics/Shaders/Shader.hh"
 #include "Graphics/Textures/Texture2D.hh"
+#include "Assets/Assets.hh"
 
 
 
@@ -31,6 +32,18 @@ int main(/*int argc, char** argv*/)
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
+
+	{
+		Assets::Types::Shader s;
+		s.code = "#version 330 core\n\nvoid main() {}";
+
+		Assets::Types::Shader x;
+
+		//Assets::Manager::Pack("shaders1.shd", s);
+		Assets::Manager::Parse("shaders1.shd", x);
+
+		std::cout << (int)x.id << ' ' << x.code << '\n';
+	}
 
 	window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Terraluna", NULL, NULL);
 
