@@ -1,0 +1,2 @@
+I (MousieDev) have stripped GLFW null and possibly osmesa backends. 
+	Why? To make codebase smaller and to remove stuff nobody uses.

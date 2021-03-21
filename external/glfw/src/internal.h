@@ -188,8 +188,8 @@ typedef void (APIENTRY * PFN_vkVoidFunction)(void);
  #include "x11_platform.h"
 #elif defined(_GLFW_WAYLAND)
  #include "wl_platform.h"
-#elif defined(_GLFW_OSMESA)
- #include "null_platform.h"
+//#elif defined(_GLFW_OSMESA)
+// #include "null_platform.h"
 #else
  #error "No supported window creation API selected"
 #endif
