@@ -7,6 +7,8 @@ src = ${sourceDir}/src
 obj = ${outDir}/obj
 glfwSrc = ${externDir}/glfw/src
 
+# Valid: X11, WIN32
+# Cocoa too, some day ;)
 platform = X11
 
 cc = gcc
