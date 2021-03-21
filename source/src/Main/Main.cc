@@ -30,12 +30,12 @@ int main(/*int argc, char** argv*/)
 
 	//{Assets::Pack("test.bin", (Assets::Asset) {.rawdata = "Hello"}); }
 
-	Assets::Asset ass;
-	Assets::Parse("test.bin", 0x0, ass);
+	//Assets::Asset ass;
+	//Assets::Parse("test.bin", 0x0, ass);
 
 	//printf ("%lu\n", ass.rawdata.size());
 
-	std::cout << ass.rawdata << std::endl;
+	//std::cout << ass.rawdata << std::endl;
 
 //	printf ("%s", ass.rawdata.c_str());
 
