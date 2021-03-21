@@ -15,8 +15,6 @@
 #include "Graphics/Textures/Texture2D.hh"
 #include "Assets/Assets.hh"
 
-
-
 // Android compability
 int main(/*int argc, char** argv*/)
 {
@@ -28,22 +26,18 @@ int main(/*int argc, char** argv*/)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-#ifdef __APPLE__
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
 
+	//{Assets::Pack("test.bin", (Assets::Asset) {.rawdata = "Hello"}); }
 
-	{
-		Assets::Types::Shader s;
-		s.code =+ "#version 330 core\n\nvoid main() {}";
+	Assets::Asset ass;
+	Assets::Parse("test.bin", 0x0, ass);
 
-		Assets::Types::Shader x;
+	//printf ("%lu\n", ass.rawdata.size());
 
-		Assets::Manager::Pack("shaders1.shd", s);
-		Assets::Manager::Parse("shaders1.shd", x);
+	std::cout << ass.rawdata << std::endl;
 
-		std::cout << (int)x.id << ' ' << x.code << '\n';
-	}
+//	printf ("%s", ass.rawdata.c_str());
 
 	window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Terraluna", NULL, NULL);
 
@@ -71,10 +65,10 @@ int main(/*int argc, char** argv*/)
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	std::string shader = "client/res/shader.sdr";
+	std::string shader = "source/res/shader.sdr";
 	Shaders::Shader s(shader, true);
 
-	std::string fname = "client/res/vase.png";
+	std::string fname = "source/res/vase.png";
 	Textures::Texture2D tex(fname);
 
 	std::string prmat = "pr_matrix";
