@@ -1994,11 +1994,11 @@ int _glfwPlatformCreateWindow(_GLFWwindow* window,
             if (!_glfwChooseVisualEGL(wndconfig, ctxconfig, fbconfig, &visual, &depth))
                 return GLFW_FALSE;
         }
-        else if (ctxconfig->source == GLFW_OSMESA_CONTEXT_API)
+/*        else if (ctxconfig->source == GLFW_OSMESA_CONTEXT_API)
         {
             if (!_glfwInitOSMesa())
                 return GLFW_FALSE;
-        }
+        }*/
     }
 
     if (!visual)
@@ -2022,11 +2022,11 @@ int _glfwPlatformCreateWindow(_GLFWwindow* window,
             if (!_glfwCreateContextEGL(window, ctxconfig, fbconfig))
                 return GLFW_FALSE;
         }
-        else if (ctxconfig->source == GLFW_OSMESA_CONTEXT_API)
+/*        else if (ctxconfig->source == GLFW_OSMESA_CONTEXT_API)
         {
             if (!_glfwCreateContextOSMesa(window, ctxconfig, fbconfig))
                 return GLFW_FALSE;
-        }
+        }*/
     }
 
     if (window->monitor)

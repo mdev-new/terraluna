@@ -116,9 +116,9 @@ extern "C" {
 #if defined(GLFW_EXPOSE_NATIVE_EGL)
  #include <EGL/egl.h>
 #endif
-#if defined(GLFW_EXPOSE_NATIVE_OSMESA)
+/*#if defined(GLFW_EXPOSE_NATIVE_OSMESA)
  #include <GL/osmesa.h>
-#endif
+#endif*/
 
 
 /*************************************************************************
@@ -459,7 +459,7 @@ GLFWAPI EGLContext glfwGetEGLContext(GLFWwindow* window);
 GLFWAPI EGLSurface glfwGetEGLSurface(GLFWwindow* window);
 #endif
 
-#if defined(GLFW_EXPOSE_NATIVE_OSMESA)
+//#if defined(GLFW_EXPOSE_NATIVE_OSMESA)
 /*! @brief Retrieves the color buffer associated with the specified window.
  *
  *  @param[in] window The window whose color buffer to retrieve.
@@ -479,7 +479,7 @@ GLFWAPI EGLSurface glfwGetEGLSurface(GLFWwindow* window);
  *
  *  @ingroup native
  */
-GLFWAPI int glfwGetOSMesaColorBuffer(GLFWwindow* window, int* width, int* height, int* format, void** buffer);
+//GLFWAPI int glfwGetOSMesaColorBuffer(GLFWwindow* window, int* width, int* height, int* format, void** buffer);
 
 /*! @brief Retrieves the depth buffer associated with the specified window.
  *
@@ -500,7 +500,7 @@ GLFWAPI int glfwGetOSMesaColorBuffer(GLFWwindow* window, int* width, int* height
  *
  *  @ingroup native
  */
-GLFWAPI int glfwGetOSMesaDepthBuffer(GLFWwindow* window, int* width, int* height, int* bytesPerValue, void** buffer);
+//GLFWAPI int glfwGetOSMesaDepthBuffer(GLFWwindow* window, int* width, int* height, int* bytesPerValue, void** buffer);
 
 /*! @brief Returns the `OSMesaContext` of the specified window.
  *
@@ -514,8 +514,8 @@ GLFWAPI int glfwGetOSMesaDepthBuffer(GLFWwindow* window, int* width, int* height
  *
  *  @ingroup native
  */
-GLFWAPI OSMesaContext glfwGetOSMesaContext(GLFWwindow* window);
-#endif
+//GLFWAPI OSMesaContext glfwGetOSMesaContext(GLFWwindow* window);
+//#endif
 
 #ifdef __cplusplus
 }

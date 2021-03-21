@@ -195,7 +195,7 @@ typedef void (APIENTRY * PFN_vkVoidFunction)(void);
 #endif
 
 #include "egl_context.h"
-#include "osmesa_context.h"
+//#include "osmesa_context.h"
 
 // Constructs a version number string from the public header macros
 #define _GLFW_CONCAT_VERSION(m, n, r) #m "." #n "." #r
@@ -366,7 +366,7 @@ struct _GLFWcontext
     // This is defined in egl_context.h
     _GLFWcontextEGL egl;
     // This is defined in osmesa_context.h
-    _GLFWcontextOSMesa osmesa;
+    //_GLFWcontextOSMesa osmesa;
 };
 
 // Window and context structure
@@ -590,7 +590,7 @@ struct _GLFWlibrary
     // This is defined in egl_context.h
     _GLFWlibraryEGL egl;
     // This is defined in osmesa_context.h
-    _GLFWlibraryOSMesa osmesa;
+    //_GLFWlibraryOSMesa osmesa;
 };
 
 // Global state shared between compilation units of GLFW

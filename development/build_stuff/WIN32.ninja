@@ -16,9 +16,8 @@ build ${obj}/glfw_win32_thread.o: depcc ${glfwSrc}/win32_thread.c
 build ${obj}/glfw_win32_window.o: depcc ${glfwSrc}/win32_window.c
 build ${obj}/glfw_wgl_context.o: depcc ${glfwSrc}/wgl_context.c
 build ${obj}/glfw_egl_context.o: depcc ${glfwSrc}/egl_context.c
-build ${obj}/glfw_osmesa_context.o: depcc ${glfwSrc}/osmesa_context.c
 
 build ${outDir}/${platform}.a: ar $
 ${obj}/glfw_init.o ${obj}/glfw_input.o ${obj}/glfw_vulkan.o ${obj}/glfw_context.o ${obj}/glfw_monitor.o ${obj}/glfw_window.o $
 ${obj}/glfw_win32_init.o ${obj}/glfw_win32_joystick.o ${obj}/glfw_win32_monitor.o ${obj}/glfw_win32_time.o ${obj}/glfw_win32_thread.o ${obj}/glfw_win32_window.o $
-${obj}/glfw_wgl_context.o ${obj}/glfw_egl_context.o ${obj}/glfw_osmesa_context.o
+${obj}/glfw_wgl_context.o ${obj}/glfw_egl_context.o
