@@ -41,7 +41,7 @@ rule ar
 
 # Building
 # Platform dependent
-include ./${developmentDir}/build/${platform}.ninja
+include ./${developmentDir}/build_stuff/${platform}.ninja
 
 # Generic
 build ${obj}/unzip.o: depcc ${externDir}/single_file/unzip.c
