@@ -16,7 +16,7 @@ cxx = g++
 ar = ar -rc
 
 common = -march=native -mtune=native -Ofast -pipe
-cflags = ${common} -std=c++14 -Wpedantic -I${src} -I${externDir}/single_file -I${externDir}/glad -I${externDir}/glfw/include
+cflags = ${common} -std=c++17 -Wpedantic -I${src} -I${externDir}/single_file -I${externDir}/glad -I${externDir}/glfw/include
 dep_cflags = ${common} -std=c99 -D_GLFW_${platform}=1 -I${externDir}/single_file -I${externDir}/glad
 ldflags = ${common} -fno-pie -fdata-sections -ffunction-sections -static-libgcc -static-libstdc++ -s -Wl,--as-needed -Wl,--gc-sections
 

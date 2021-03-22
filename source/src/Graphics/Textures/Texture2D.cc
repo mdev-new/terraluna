@@ -32,29 +32,6 @@ namespace Textures
 		stbi_image_free(data);
 	}
 
-	// RGBA
-	Texture2D::Texture2D(int pixels[], int width, int height)
-		:width(width), height(height)
-	{
-		int data[width * height];
-		for (int i = 0; i < width * height; i++)
-		{
-			int a = (pixels[i] & 0xff000000) >> 24;
-			int r = (pixels[i] & 0xff0000) >> 16;
-			int g = (pixels[i] & 0xff00) >> 8;
-			int b = (pixels[i] & 0xff);
-
-			data[i] = a << 24 | b << 16 | g << 8 | r;
-		}
-
-		glGenTextures(1, &texture);
-		glBindTexture(GL_TEXTURE_2D, texture);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &data);
-		glBindTexture(GL_TEXTURE_2D, 0);
-	}
-
 	void Texture2D::Bind()
 	{
 		glBindTexture(GL_TEXTURE_2D, texture);
