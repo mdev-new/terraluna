@@ -1,6 +1,6 @@
 #include "Window.hh"
 
-#include <glad/glad.h>
+#include <glad.h>
 #include <GLFW/glfw3.h>
 
 int Windows::MakeWindow(GLFWwindow **window) {

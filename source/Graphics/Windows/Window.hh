@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Main/Main.hh"
-#include <glad/glad.h>
+#include <glad.h>
 #include <GLFW/glfw3.h>
 
 

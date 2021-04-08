@@ -1,6 +1,6 @@
 #pragma once
 
-constexpr float VERSION = 0.1;
+constexpr float VERSION = 0.23;
 constexpr int SCREEN_WIDTH = 480;
 constexpr int SCREEN_HEIGHT = 360;
 constexpr int VERTEX_ATTRIB = 0;

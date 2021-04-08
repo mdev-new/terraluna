@@ -14,7 +14,7 @@
 
 #include "Assets/VFS.hh"
 
-int main(/*int argc, char** argv*/)
+int main(void)
 {
 	GLFWwindow *window;
 
@@ -58,7 +58,7 @@ int main(/*int argc, char** argv*/)
 	Audio::AudioFile af { "resources/test.mp3" };
 	snd << af; // `snd.Play(af);` does the same thing
 	// af.Wait(); // uncomment it to block the thread until the sound is played (efectively make this sync)
-/*
+
 	Assets::vfs_initialize();
 
 	Assets::IFileSystemPtr zip_fs(new Assets::CZipFileSystem("res.zip", "/"));
@@ -68,11 +68,11 @@ int main(/*int argc, char** argv*/)
 
 	Assets::IFilePtr file = vfs->OpenFile(Assets::CFileInfo("/shader.sdr"), Assets::IFile::In);
 	char data[507];
-	file->Read(reinterpret_cast<uint8_t*>(data), 507);
+	file->Read(reinterpret_cast<uint8_t*>(data), file->Size());
 	printf("%s\n", data);
 
 	Assets::vfs_shutdown();
-*/
+
 	bool running = true; // Can I question what's this?
 	while (running && !glfwWindowShouldClose(window))
 	{
@@ -95,7 +95,7 @@ int main(/*int argc, char** argv*/)
 		std::this_thread::sleep_for(std::chrono::milliseconds(1000 / FPS));
 	}
 
-// TODO: Cleanup
+	glfwDestroyWindow(window);
 	glfwTerminate();
 	return 0;
 }
