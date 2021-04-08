@@ -1,25 +1,25 @@
 dependentLibs = -L/usr/lib/x86_64-linux-gnu -lm -lpthread -ldl -l:libGL.so.1 -lXi -lX11 -lXrandr
 
 # glfw generic
-build ${obj}/glfw_init.o: depcc ${glfwSrc}/init.c
-build ${obj}/glfw_input.o: depcc ${glfwSrc}/input.c
-build ${obj}/glfw_vulkan.o: depcc ${glfwSrc}/vulkan.c
-build ${obj}/glfw_context.o: depcc ${glfwSrc}/context.c
-build ${obj}/glfw_monitor.o: depcc ${glfwSrc}/monitor.c
-build ${obj}/glfw_window.o: depcc ${glfwSrc}/window.c
+build ${obj}/glfw_init.obj: depcc ${glfwSrc}/init.c
+build ${obj}/glfw_input.obj: depcc ${glfwSrc}/input.c
+build ${obj}/glfw_vulkan.obj: depcc ${glfwSrc}/vulkan.c
+build ${obj}/glfw_context.obj: depcc ${glfwSrc}/context.c
+build ${obj}/glfw_monitor.obj: depcc ${glfwSrc}/monitor.c
+build ${obj}/glfw_window.obj: depcc ${glfwSrc}/window.c
 # glfw linux (x11)
-build ${obj}/glfw_x11_init.o: depcc ${glfwSrc}/x11_init.c
-build ${obj}/glfw_x11_monitor.o: depcc ${glfwSrc}/x11_monitor.c
-build ${obj}/glfw_x11_window.o: depcc ${glfwSrc}/x11_window.c
-build ${obj}/glfw_xkb_unicode.o: depcc ${glfwSrc}/xkb_unicode.c
-build ${obj}/glfw_posix_time.o: depcc ${glfwSrc}/posix_time.c
-build ${obj}/glfw_posix_thread.o: depcc ${glfwSrc}/posix_thread.c
-build ${obj}/glfw_glx_context.o: depcc ${glfwSrc}/glx_context.c
-build ${obj}/glfw_egl_context.o: depcc ${glfwSrc}/egl_context.c
-#build ${obj}/glfw_osmesa_context.o: depcc ${glfwSrc}/osmesa_context.c
-build ${obj}/glfw_linux_joystick.o: depcc ${glfwSrc}/linux_joystick.c
+build ${obj}/glfw_x11_init.obj: depcc ${glfwSrc}/x11_init.c
+build ${obj}/glfw_x11_monitor.obj: depcc ${glfwSrc}/x11_monitor.c
+build ${obj}/glfw_x11_window.obj: depcc ${glfwSrc}/x11_window.c
+build ${obj}/glfw_xkb_unicode.obj: depcc ${glfwSrc}/xkb_unicode.c
+build ${obj}/glfw_posix_time.obj: depcc ${glfwSrc}/posix_time.c
+build ${obj}/glfw_posix_thread.obj: depcc ${glfwSrc}/posix_thread.c
+build ${obj}/glfw_glx_context.obj: depcc ${glfwSrc}/glx_context.c
+build ${obj}/glfw_egl_context.obj: depcc ${glfwSrc}/egl_context.c
+#build ${obj}/glfw_osmesa_context.obj: depcc ${glfwSrc}/osmesa_context.c
+build ${obj}/glfw_linux_joystick.obj: depcc ${glfwSrc}/linux_joystick.c
 
 build ${outDir}/${platform}.a: ar $
-${obj}/glfw_init.o ${obj}/glfw_input.o ${obj}/glfw_vulkan.o ${obj}/glfw_context.o ${obj}/glfw_monitor.o ${obj}/glfw_window.o $
-${obj}/glfw_x11_init.o ${obj}/glfw_x11_monitor.o ${obj}/glfw_x11_window.o ${obj}/glfw_xkb_unicode.o ${obj}/glfw_posix_time.o ${obj}/glfw_posix_thread.o ${obj}/glfw_linux_joystick.o $
-${obj}/glfw_glx_context.o ${obj}/glfw_egl_context.o
+${obj}/glfw_init.obj ${obj}/glfw_input.obj ${obj}/glfw_vulkan.obj ${obj}/glfw_context.obj ${obj}/glfw_monitor.obj ${obj}/glfw_window.obj $
+${obj}/glfw_x11_init.obj ${obj}/glfw_x11_monitor.obj ${obj}/glfw_x11_window.obj ${obj}/glfw_xkb_unicode.obj ${obj}/glfw_posix_time.obj ${obj}/glfw_posix_thread.obj ${obj}/glfw_linux_joystick.obj $
+${obj}/glfw_glx_context.obj ${obj}/glfw_egl_context.obj

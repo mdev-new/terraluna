@@ -1,5 +1,8 @@
 build/
+_build
 .vscode/
 *.sublime-*
 *.bin
 *.ninja_*
+*.bat
+*.exe

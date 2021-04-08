@@ -3,7 +3,7 @@ sourceDir = source
 externDir = external
 outDir = build
 
-src = ${sourceDir}/src
+src = ${sourceDir}
 obj = ${outDir}/obj
 glfwSrc = ${externDir}/glfw/src
 
@@ -45,26 +45,27 @@ rule ar
 include ./${developmentDir}/build_stuff/${platform}.ninja
 
 # Generic
-build ${obj}/miniz.o: depcc ${externDir}/single_file/miniz.c
-build ${obj}/glad.o: depcc ${externDir}/glad/glad.c
-build ${obj}/stb_image.o: depcc ${externDir}/single_file/stb_image.c
-build ${obj}/miniaudio.o: depcc ${externDir}/single_file/miniaudio.c
-build ${outDir}/external.a: ar ${obj}/glad.o ${obj}/stb_image.o ${obj}/miniaudio.o ${obj}/miniz.o
+build ${obj}/miniz.obj: depcc ${externDir}/single_file/miniz.c
+build ${obj}/glad.obj: depcc ${externDir}/glad/glad.c
+build ${obj}/stb_image.obj: depcc ${externDir}/single_file/stb_image.c
+build ${obj}/miniaudio.obj: depcc ${externDir}/single_file/miniaudio.c
+build ${outDir}/external.a: ar ${obj}/glad.obj ${obj}/stb_image.obj ${obj}/miniaudio.obj ${obj}/miniz.obj
 
 # Our own
-build ${obj}/tl_main.o: cc ${src}/Main/Main.cc
-build ${obj}/tl_va.o: cc ${src}/Graphics/Render/VertexArray.cc
-build ${obj}/tl_shd.o: cc ${src}/Graphics/Shaders/Shader.cc
-build ${obj}/tl_tex2d.o: cc ${src}/Graphics/Textures/Texture2D.cc
-build ${obj}/tl_mat4f.o: cc ${src}/Misc/Maths/Matrix4f.cc
-build ${obj}/tl_aud.o: cc ${src}/Audio/Audio.cc
+build ${obj}/tl_main.obj: cc ${src}/Main/Main.cc
+build ${obj}/tl_va.obj: cc ${src}/Graphics/Render/VertexArray.cc
+build ${obj}/tl_wnd.obj: cc ${src}/Graphics/Windows/Window.cc
+build ${obj}/tl_shd.obj: cc ${src}/Graphics/Shaders/Shader.cc
+build ${obj}/tl_tex2d.obj: cc ${src}/Graphics/Textures/Texture2D.cc
+build ${obj}/tl_mat4f.obj: cc ${src}/Misc/Maths/Matrix4f.cc
+build ${obj}/tl_aud.obj: cc ${src}/Audio/Audio.cc
 
-build ${obj}/tl_vfs.o: cc ${src}/Assets/VFS.cc
+build ${obj}/tl_vfs.obj: cc ${src}/Assets/VFS.cc
 
 build ${outDir}/terraluna.a: ar $
-${obj}/tl_main.o $
-${obj}/tl_va.o ${obj}/tl_shd.o ${obj}/tl_tex2d.o ${obj}/tl_aud.o $
-${obj}/tl_mat4f.o ${obj}/tl_vfs.o
+${obj}/tl_main.obj $
+${obj}/tl_va.obj ${obj}/tl_shd.obj ${obj}/tl_tex2d.obj ${obj}/tl_aud.obj $
+${obj}/tl_mat4f.obj ${obj}/tl_vfs.obj ${obj}/tl_wnd.obj
 
 build ${outDir}/tl.exe: link ${outDir}/terraluna.a ${outDir}/${platform}.a ${outDir}/external.a
   libs = ${dependentLibs}

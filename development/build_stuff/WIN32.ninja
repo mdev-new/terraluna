@@ -1,23 +1,23 @@
 dependentLibs = -lgdi32 -luser32 -lkernel32 -lopengl32
 
 # glfw generic
-build ${obj}/glfw_init.o: depcc ${glfwSrc}/init.c
-build ${obj}/glfw_input.o: depcc ${glfwSrc}/input.c
-build ${obj}/glfw_vulkan.o: depcc ${glfwSrc}/vulkan.c
-build ${obj}/glfw_context.o: depcc ${glfwSrc}/context.c
-build ${obj}/glfw_monitor.o: depcc ${glfwSrc}/monitor.c
-build ${obj}/glfw_window.o: depcc ${glfwSrc}/window.c
+build ${obj}/glfw_init.obj: depcc ${glfwSrc}/init.c
+build ${obj}/glfw_input.obj: depcc ${glfwSrc}/input.c
+build ${obj}/glfw_vulkan.obj: depcc ${glfwSrc}/vulkan.c
+build ${obj}/glfw_context.obj: depcc ${glfwSrc}/context.c
+build ${obj}/glfw_monitor.obj: depcc ${glfwSrc}/monitor.c
+build ${obj}/glfw_window.obj: depcc ${glfwSrc}/window.c
 # glfw win32
-build ${obj}/glfw_win32_init.o: depcc ${glfwSrc}/win32_init.c
-build ${obj}/glfw_win32_joystick.o: depcc ${glfwSrc}/win32_joystick.c
-build ${obj}/glfw_win32_monitor.o: depcc ${glfwSrc}/win32_monitor.c
-build ${obj}/glfw_win32_time.o: depcc ${glfwSrc}/win32_time.c
-build ${obj}/glfw_win32_thread.o: depcc ${glfwSrc}/win32_thread.c
-build ${obj}/glfw_win32_window.o: depcc ${glfwSrc}/win32_window.c
-build ${obj}/glfw_wgl_context.o: depcc ${glfwSrc}/wgl_context.c
-build ${obj}/glfw_egl_context.o: depcc ${glfwSrc}/egl_context.c
+build ${obj}/glfw_win32_init.obj: depcc ${glfwSrc}/win32_init.c
+build ${obj}/glfw_win32_joystick.obj: depcc ${glfwSrc}/win32_joystick.c
+build ${obj}/glfw_win32_monitor.obj: depcc ${glfwSrc}/win32_monitor.c
+build ${obj}/glfw_win32_time.obj: depcc ${glfwSrc}/win32_time.c
+build ${obj}/glfw_win32_thread.obj: depcc ${glfwSrc}/win32_thread.c
+build ${obj}/glfw_win32_window.obj: depcc ${glfwSrc}/win32_window.c
+build ${obj}/glfw_wgl_context.obj: depcc ${glfwSrc}/wgl_context.c
+build ${obj}/glfw_egl_context.obj: depcc ${glfwSrc}/egl_context.c
 
 build ${outDir}/${platform}.a: ar $
-${obj}/glfw_init.o ${obj}/glfw_input.o ${obj}/glfw_vulkan.o ${obj}/glfw_context.o ${obj}/glfw_monitor.o ${obj}/glfw_window.o $
-${obj}/glfw_win32_init.o ${obj}/glfw_win32_joystick.o ${obj}/glfw_win32_monitor.o ${obj}/glfw_win32_time.o ${obj}/glfw_win32_thread.o ${obj}/glfw_win32_window.o $
-${obj}/glfw_wgl_context.o ${obj}/glfw_egl_context.o
+${obj}/glfw_init.obj ${obj}/glfw_input.obj ${obj}/glfw_vulkan.obj ${obj}/glfw_context.obj ${obj}/glfw_monitor.obj ${obj}/glfw_window.obj $
+${obj}/glfw_win32_init.obj ${obj}/glfw_win32_joystick.obj ${obj}/glfw_win32_monitor.obj ${obj}/glfw_win32_time.obj ${obj}/glfw_win32_thread.obj ${obj}/glfw_win32_window.obj $
+${obj}/glfw_wgl_context.obj ${obj}/glfw_egl_context.obj
