@@ -9,7 +9,7 @@ glfwSrc = ${externDir}/glfw/src
 
 # Valid: X11, WIN32
 # Cocoa too, some day ;)
-platform = X11
+platform = WIN32
 
 cc = gcc
 cxx = g++
@@ -33,8 +33,7 @@ rule depcc
     description = cc ${out}
 
 rule link
-    depfile = ${out}.dep
-    command = ${cxx} -MD -MF ${out}.dep -o ${out} ${in} ${libs} ${ldflags}
+    command = ${cxx} -o ${out} ${in} ${libs} ${ldflags}
     description = cc ${out}
 
 rule ar
@@ -46,11 +45,11 @@ rule ar
 include ./${developmentDir}/build_stuff/${platform}.ninja
 
 # Generic
-build ${obj}/unzip.o: depcc ${externDir}/single_file/unzip.c
+build ${obj}/miniz.o: depcc ${externDir}/single_file/miniz.c
 build ${obj}/glad.o: depcc ${externDir}/glad/glad.c
 build ${obj}/stb_image.o: depcc ${externDir}/single_file/stb_image.c
 build ${obj}/miniaudio.o: depcc ${externDir}/single_file/miniaudio.c
-build ${outDir}/external.a: ar ${obj}/glad.o ${obj}/stb_image.o ${obj}/miniaudio.o
+build ${outDir}/external.a: ar ${obj}/glad.o ${obj}/stb_image.o ${obj}/miniaudio.o ${obj}/miniz.o
 
 # Our own
 build ${obj}/tl_main.o: cc ${src}/Main/Main.cc
@@ -60,10 +59,12 @@ build ${obj}/tl_tex2d.o: cc ${src}/Graphics/Textures/Texture2D.cc
 build ${obj}/tl_mat4f.o: cc ${src}/Misc/Maths/Matrix4f.cc
 build ${obj}/tl_aud.o: cc ${src}/Audio/Audio.cc
 
+build ${obj}/tl_vfs.o: cc ${src}/Assets/VFS.cc
+
 build ${outDir}/terraluna.a: ar $
 ${obj}/tl_main.o $
 ${obj}/tl_va.o ${obj}/tl_shd.o ${obj}/tl_tex2d.o ${obj}/tl_aud.o $
-${obj}/tl_mat4f.o
+${obj}/tl_mat4f.o ${obj}/tl_vfs.o
 
 build ${outDir}/tl.exe: link ${outDir}/terraluna.a ${outDir}/${platform}.a ${outDir}/external.a
   libs = ${dependentLibs}

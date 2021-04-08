@@ -13,7 +13,8 @@
 #include "Graphics/Render/VertexArray.hh"
 #include "Graphics/Shaders/Shader.hh"
 #include "Graphics/Textures/Texture2D.hh"
-#include "Assets/Assets.hh"
+
+#include "Assets/VFS.hh"
 
 // Android compability
 int main(/*int argc, char** argv*/)
@@ -27,17 +28,6 @@ int main(/*int argc, char** argv*/)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
-	//{Assets::Pack("test.bin", (Assets::Asset) {.rawdata = "Hello"}); }
-
-	//Assets::Asset ass;
-	//Assets::Parse("test.bin", 0x0, ass);
-
-	//printf ("%lu\n", ass.rawdata.size());
-
-	//std::cout << ass.rawdata << std::endl;
-
-//	printf ("%s", ass.rawdata.c_str());
 
 	window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Terraluna", NULL, NULL);
 
@@ -91,9 +81,23 @@ int main(/*int argc, char** argv*/)
 	Render::VertexArray background(verts, indic, tcoords);
 
 	Audio::SndOutStream snd;
-	Audio::AudioFile af { "client/res/test.mp3" };
+	Audio::AudioFile af { "source/res/test.mp3" };
 	snd << af; // `snd.Play(af);` does the same thing
 	// af.Wait(); // uncomment it to block the thread until the sound is played (efectively make this sync)
+
+	Assets::vfs_initialize();
+
+	Assets::IFileSystemPtr zip_fs(new Assets::CZipFileSystem("res.zip", "/"));
+	zip_fs->Initialize();
+	Assets::CVirtualFileSystemPtr vfs = Assets::vfs_get_global();
+	vfs->AddFileSystem("/", zip_fs);
+
+	Assets::IFilePtr file = vfs->OpenFile(Assets::CFileInfo("/shader.sdr"), Assets::IFile::In);
+	char data[507];
+	file->Read(reinterpret_cast<uint8_t*>(data), 507);
+	printf("%s\n", data);
+
+	Assets::vfs_shutdown();
 
 	bool running = true; // Can I question what's this?
 	while (running && !glfwWindowShouldClose(window))
