@@ -1,9 +1,5 @@
 #pragma once
 #include <string>
-#include <iostream>
-
-#include <glad/glad.h>
-#include <stb_image.h>
 
 namespace Textures
 {
@@ -15,10 +11,9 @@ namespace Textures
 		void Bind();
 		void Unbind();
 
-
 	private:
 		int width, height, channels;
 		unsigned char* data;
-		GLuint texture;
+		unsigned int texture;
 	};
 }

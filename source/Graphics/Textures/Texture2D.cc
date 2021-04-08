@@ -1,5 +1,9 @@
 #include "Texture2D.hh"
 
+#include <iostream>
+#include <glad/glad.h>
+#include <stb_image.h>
+
 namespace Textures
 {
 	Texture2D::Texture2D(std::string& path)

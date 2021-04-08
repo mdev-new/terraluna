@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Vector3f.hh"
-#include <vector>
 
 namespace Maths
 {

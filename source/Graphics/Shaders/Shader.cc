@@ -1,5 +1,11 @@
 #include "Shader.hh"
 
+#include <cstdint>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+
+#include <glad/glad.h>
 
 namespace Shaders
 {

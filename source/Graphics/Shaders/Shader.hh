@@ -1,12 +1,6 @@
 #pragma once
+
 #include <string>
-#include <cstdint>
-#include <fstream>
-#include <iostream>
-#include <sstream>
-
-#include <glad/glad.h>
-
 
 #include "Misc/Maths/Matrix4f.hh"
 #include "Misc/Maths/Vector2f.hh"

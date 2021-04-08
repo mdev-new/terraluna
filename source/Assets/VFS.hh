@@ -102,18 +102,11 @@ public:
 	virtual uint64_t Tell() = 0;
 
 	virtual uint64_t Read(uint8_t* buffer, uint64_t size) = 0;
-	virtual uint64_t Write(const uint8_t* buffer, uint64_t size) = 0;
 
 	template<typename T>
 	bool Read(T& value)
 	{
 		return (Read(&value, sizeof(value)) == sizeof(value));
-	}
-
-	template<typename T>
-	uint64_t Write(const T& value)
-	{
-		return (Write(&value, sizeof(value)) == sizeof(value));
 	}
 };
 
@@ -151,8 +144,6 @@ public:
 	virtual bool IsReadOnly() const = 0;
 	virtual IFilePtr OpenFile(const CFileInfo& filePath, int mode) = 0;
 	virtual void CloseFile(IFilePtr file) = 0;
-	virtual bool CreateFile(const CFileInfo& filePath) = 0;
-	virtual bool CopyFile(const CFileInfo& src, const CFileInfo& dest) = 0;
 	virtual bool IsFileExists(const CFileInfo& filePath) const = 0;
 	virtual bool IsFile(const CFileInfo& filePath) const = 0;
 	virtual bool IsDir(const CFileInfo& dirPath) const = 0;
@@ -250,7 +241,6 @@ public:
 	virtual uint64_t Seek(uint64_t offset, Origin origin) override;
 	virtual uint64_t Tell() override;
 	virtual uint64_t Read(uint8_t* buffer, uint64_t size) override;
-	virtual uint64_t Write(const uint8_t* buffer, uint64_t size) override;
 
 private:
 	CZipPtr m_ZipArchive;
@@ -280,8 +270,6 @@ public:
 	virtual bool IsReadOnly() const override;
 	virtual IFilePtr OpenFile(const CFileInfo& filePath, int mode) override;
 	virtual void CloseFile(IFilePtr file) override;
-	virtual bool CreateFile(const CFileInfo& filePath) override;
-	virtual bool CopyFile(const CFileInfo& src, const CFileInfo& dest) override;
 	virtual bool IsFileExists(const CFileInfo& filePath) const override;
 	virtual bool IsFile(const CFileInfo& filePath) const override;
 	virtual bool IsDir(const CFileInfo& dirPath) const override;

@@ -7,15 +7,8 @@
 using namespace Assets;
 
 namespace Assets {
-CFileInfo::CFileInfo()
-{
-
-}
-
-CFileInfo::~CFileInfo()
-{
-
-}
+CFileInfo::CFileInfo() {}
+CFileInfo::~CFileInfo() {}
 
 CFileInfo::CFileInfo(const std::string& basePath, const std::string& fileName, bool isDir)
 {
@@ -358,10 +351,7 @@ CZipFile::CZipFile(const CFileInfo& fileInfo, CZipPtr zipFile)
 	assert(m_ZipArchive && "Cannot init zip file from empty zip archive");
 }
 
-CZipFile::~CZipFile()
-{
-
-}
+CZipFile::~CZipFile() {}
 
 const CFileInfo& CZipFile::FileInfo() const
 {
@@ -498,25 +488,6 @@ uint64_t CZipFile::Read(uint8_t* buffer, uint64_t size)
 	return maxSize;
 }
 
-uint64_t CZipFile::Write(const uint8_t* buffer, uint64_t size)
-{
-	if (!IsOpened() || IsReadOnly())
-	{
-		return 0;
-	}
-
-	uint64_t bufferSize = Size() - Tell();
-	if (size > bufferSize)
-	{
-		m_Data.resize((size_t)(m_Data.size() + (size - bufferSize)));
-	}
-	memcpy(m_Data.data() + Tell(), buffer, (size_t)size);
-
-	m_HasChanges = true;
-
-	return size;
-}
-
 
 std::unordered_map<std::string, CZipPtr> CZipFileSystem::s_OpenedZips;
 
@@ -616,49 +587,6 @@ void CZipFileSystem::CloseFile(IFilePtr file)
 	{
 		file->Close();
 	}
-}
-
-
-bool CZipFileSystem::CreateFile(const CFileInfo& filePath)
-{
-	bool result = false;
-	if (!IsFileExists(filePath))
-	{
-		IFilePtr file = OpenFile(filePath, IFile::ReadWrite);
-		if (file)
-		{
-			result = true;
-			file->Close();
-		}
-	}
-	else
-	{
-		result = true;
-	}
-
-	return result;
-}
-
-
-
-bool CZipFileSystem::CopyFile(const CFileInfo& src, const CFileInfo& dest)
-{
-	bool result = false;
-	if (!IsReadOnly())
-	{
-		CZipFilePtr srcFile = std::static_pointer_cast<CZipFile>(FindFile(src));
-		CZipFilePtr dstFile = std::static_pointer_cast<CZipFile>(OpenFile(dest, IFile::Out));
-
-		if (srcFile && dstFile)
-		{
-			dstFile->m_Data.assign(srcFile->m_Data.begin(), srcFile->m_Data.end());
-			dstFile->Close();
-
-			result = true;
-		}
-	}
-
-	return result;
 }
 
 
