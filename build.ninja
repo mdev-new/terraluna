@@ -16,7 +16,7 @@ cxx = g++
 ar = ar -rc
 
 common = -march=native -mtune=native -Ofast -pipe
-cflags = ${common} -std=c++17 -Wpedantic -I${src} -I${externDir}/single_file -I${externDir}/glad -I${externDir}/glfw/include
+cflags = ${common} -std=gnu++2a -Wpedantic -I${src} -I${externDir}/single_file -I${externDir}/glad -I${externDir}/glfw/include
 dep_cflags = ${common} -std=c99 -D_GLFW_${platform}=1 -I${externDir}/single_file -I${externDir}/glad
 ldflags = ${common} -fno-pie -fdata-sections -ffunction-sections -static-libgcc -static-libstdc++ -s -Wl,--as-needed -Wl,--gc-sections
 
@@ -45,11 +45,10 @@ rule ar
 include ./${developmentDir}/build_stuff/${platform}.ninja
 
 # Generic
-build ${obj}/miniz.obj: depcc ${externDir}/single_file/miniz.c
 build ${obj}/glad.obj: depcc ${externDir}/glad/glad.c
 build ${obj}/stb_image.obj: depcc ${externDir}/single_file/stb_image.c
 build ${obj}/miniaudio.obj: depcc ${externDir}/single_file/miniaudio.c
-build ${outDir}/external.a: ar ${obj}/glad.obj ${obj}/stb_image.obj ${obj}/miniaudio.obj ${obj}/miniz.obj
+build ${outDir}/external.a: ar ${obj}/glad.obj ${obj}/stb_image.obj ${obj}/miniaudio.obj
 
 # Our own
 build ${obj}/tl_main.obj: cc ${src}/Main/Main.cc
@@ -60,12 +59,10 @@ build ${obj}/tl_tex2d.obj: cc ${src}/Graphics/Textures/Texture2D.cc
 build ${obj}/tl_mat4f.obj: cc ${src}/Misc/Maths/Matrix4f.cc
 build ${obj}/tl_aud.obj: cc ${src}/Audio/Audio.cc
 
-build ${obj}/tl_vfs.obj: cc ${src}/Assets/VFS.cc
-
 build ${outDir}/terraluna.a: ar $
 ${obj}/tl_main.obj $
 ${obj}/tl_va.obj ${obj}/tl_shd.obj ${obj}/tl_tex2d.obj ${obj}/tl_aud.obj $
-${obj}/tl_mat4f.obj ${obj}/tl_vfs.obj ${obj}/tl_wnd.obj
+${obj}/tl_mat4f.obj ${obj}/tl_wnd.obj
 
 build ${outDir}/tl.exe: link ${outDir}/terraluna.a ${outDir}/${platform}.a ${outDir}/external.a
   libs = ${dependentLibs}

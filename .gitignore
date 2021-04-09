@@ -6,3 +6,4 @@ _build
 *.ninja_*
 *.bat
 *.exe
+*.dat

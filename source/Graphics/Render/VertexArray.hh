@@ -6,7 +6,7 @@
 #include "Main/Main.hh"
 
 typedef GLubyte byte;
-namespace Render
+namespace Graphics
 {
 	class VertexArray
 	{

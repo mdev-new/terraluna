@@ -4,7 +4,7 @@
 #include <glad.h>
 #include <stb_image.h>
 
-namespace Textures
+namespace Graphics
 {
 	Texture2D::Texture2D(std::string& path)
 	{

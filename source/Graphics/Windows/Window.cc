@@ -3,7 +3,9 @@
 #include <glad.h>
 #include <GLFW/glfw3.h>
 
-int Windows::MakeWindow(GLFWwindow **window) {
+namespace Graphics {
+
+int MakeWindow(GLFWwindow **window) {
 	if (!glfwInit())
 		return -1;
 
@@ -30,4 +32,6 @@ int Windows::MakeWindow(GLFWwindow **window) {
 	}
 
 	return 0;
+}
+
 }

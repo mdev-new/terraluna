@@ -1,5 +1,5 @@
-Cleanup everything when quitting
-Exception checking/handling
-Cleanup code
-Make everything more light
-Camera
+DONE (i think)					Cleanup everything when quitting
+								Exception checking/handling
+								Make everything more light
+								Make VFS read to std::string
+								Camera

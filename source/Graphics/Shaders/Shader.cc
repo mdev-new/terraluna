@@ -7,7 +7,7 @@
 
 #include <glad.h>
 
-namespace Shaders
+namespace Graphics
 {
 	Shader::Shader() {}
 	Shader::Shader(std::string& shaderData, bool onDisk)
@@ -67,8 +67,8 @@ namespace Shaders
 		}
 
 		uint32_t vertex, fragment;
-		const char* vCode = vertexShader.c_str();
-		const char* frCode = fragmentShader.c_str();
+		vCode = vertexShader.c_str();
+		frCode = fragmentShader.c_str();
 		
 		vertex = glCreateShader(GL_VERTEX_SHADER);
 		glShaderSource(vertex, 1, &vCode, NULL);
@@ -91,6 +91,11 @@ namespace Shaders
 	Shader::~Shader()
 	{
 		glDeleteProgram(this->m_ProgramId);
+		delete[] vCode;
+		delete[] frCode;
+
+		vCode = NULL;
+		frCode = NULL;
 	}
 
 	void Shader::Bind()

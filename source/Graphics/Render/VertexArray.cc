@@ -1,7 +1,7 @@
 #include "VertexArray.hh"
 #include <cstdio>
 
-namespace Render
+namespace Graphics
 {
 	VertexArray::VertexArray(int count)
 		:count(count)
@@ -30,10 +30,6 @@ namespace Render
 		glGenBuffers(1, &ibo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(byte), &indices.front(), GL_STATIC_DRAW);
-
-
-//		glVertexAttribPointer(glGetAttribLocation(program, "point"), 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)0);
-//		glVertexAttribPointer(glGetAttribLocation(program, "texcoord"), 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)(3 * sizeof(float)));
 
 		glEnableVertexAttribArray(VERTEX_ATTRIB);
 		glEnableVertexAttribArray(TCOORD_ATTRIB);

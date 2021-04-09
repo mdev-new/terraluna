@@ -7,19 +7,12 @@
 #include "Misc/Maths/Vector3f.hh"
 
 
-namespace Shaders
+namespace Graphics
 {
 	class Shader
 	{
 	public:
 		Shader();
-
-		/*
-			Shader(std::string& vertexData, std::string& fragmentData, bool onDisk)
-			vertexData - the shader, or path in the disk (onDisk has to be true if on disk)
-			fragmentData - the shader, or path in the disk (onDisk has to be tru if on disk)
-			onDisk - load data from files.
-		*/
 		Shader(std::string& shaderData, bool onDisk);
 
 		~Shader();
@@ -35,5 +28,7 @@ namespace Shaders
 		int GetUniform(std::string& name);
 	private:
 		uint32_t m_ProgramId;
+		const char *vCode;
+		const char *frCode;
 	};
 }

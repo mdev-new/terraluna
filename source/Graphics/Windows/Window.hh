@@ -5,7 +5,7 @@
 #include <GLFW/glfw3.h>
 
 
-namespace Windows {
+namespace Graphics {
 
 int MakeWindow(GLFWwindow **window);
 

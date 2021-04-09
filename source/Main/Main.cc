@@ -4,6 +4,8 @@
 #include <thread>
 #include <sstream>
 
+#include <iostream>
+
 #include "Main.hh"
 #include "Audio/Audio.hh"
 #include "Misc/Maths/Matrix4f.hh"
@@ -14,11 +16,53 @@
 
 #include "Assets/VFS.hh"
 
+bool keys [256];
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	switch (action)
+	{
+	case GLFW_PRESS:
+		keys[key] = true;
+		break;
+	case GLFW_RELEASE:
+		keys[key] = false;
+		break;
+	}
+}
+
+void PrintDirs(Assets::CVFS &vfs, const std::string &Path, const std::string &Shift = "")
+{
+	auto node = vfs.GetNodeInfo(Path);
+	auto childs = vfs.List(node);
+
+	std::cout << Shift << "Dir: " << node->Name() << std::endl;
+	for (auto &&i : childs)
+	{
+		if(i->IsDir())
+			PrintDirs(vfs, Path + i->Name() + "/", Shift + " ");
+		else
+			std::cout << Shift << " File: " << i->Name() << " Size: " << vfs.FileSize(i) << std::endl;
+	}
+}
+
 int main(void)
 {
+	{
+		Assets::CVFS vfs;
+		vfs.CreateDir("/data");
+
+		auto fs = vfs.Open("/data/test.txt", Assets::FileMode::RW);
+		fs->WriteLine("Hello World!");
+
+		PrintDirs(vfs, "/");
+		std::cout << fs->Read() << std::endl;
+	}
+
 	GLFWwindow *window;
 
-	Windows::MakeWindow(&window);
+	Graphics::MakeWindow(&window);
+	glfwSetKeyCallback(window, key_callback);
 
 	std::stringstream windowTitle;
 	windowTitle << "Terraluna " << VERSION << " (OpenGL " << glGetString(GL_VERSION) << ")";
@@ -30,10 +74,10 @@ int main(void)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	std::string shader = "resources/shader.sdr";
-	Shaders::Shader s(shader, true);
+	Graphics::Shader s(shader, true);
 
 	std::string fname = "resources/vase.png";
-	Textures::Texture2D tex(fname);
+	Graphics::Texture2D tex(fname);
 
 	std::string prmat = "pr_matrix";
 	std::string textext = "u_Texture";
@@ -52,26 +96,12 @@ int main(void)
 	};
 	std::vector<float> tcoords = { 0, 1, 0, 0, 1, 0, 1, 1 };
 	std::vector<byte> indic = { 0, 1, 2, 2, 3, 0 };
-	Render::VertexArray background(verts, indic, tcoords);
+	Graphics::VertexArray background(verts, indic, tcoords);
 
 	Audio::SndOutStream snd;
 	Audio::AudioFile af { "resources/test.mp3" };
 	snd << af; // `snd.Play(af);` does the same thing
 	// af.Wait(); // uncomment it to block the thread until the sound is played (efectively make this sync)
-
-	Assets::vfs_initialize();
-
-	Assets::IFileSystemPtr zip_fs(new Assets::CZipFileSystem("res.zip", "/"));
-	zip_fs->Initialize();
-	Assets::CVirtualFileSystemPtr vfs = Assets::vfs_get_global();
-	vfs->AddFileSystem("/", zip_fs);
-
-	Assets::IFilePtr file = vfs->OpenFile(Assets::CFileInfo("/shader.sdr"), Assets::IFile::In);
-	char data[507];
-	file->Read(reinterpret_cast<uint8_t*>(data), file->Size());
-	printf("%s\n", data);
-
-	Assets::vfs_shutdown();
 
 	bool running = true; // Can I question what's this?
 	while (running && !glfwWindowShouldClose(window))
